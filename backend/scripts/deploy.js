@@ -1,33 +1,59 @@
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
-// will compile your contracts, add the Hardhat Runtime Environment's members to the
-// global scope, and execute the script.
+
 const hre = require("hardhat");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+//connecting the contract 
+  const VotingContractFactory = await hre.ethers.getContractFactory("Voting");
+  const votingContract = await VotingContractFactory.deploy();
+  await votingContract.deployed();
+//console.logging the value
+  console.log("VotingContract deployed to:", votingContract.address);
 
-  const lockedAmount = hre.ethers.parseEther("0.001");
+  //operations
+//statevariables
 
-  const lock = await hre.ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+const money = {value: hre.ethers.utils.parseEther("10")};
+//candidate accounts
+const [owner, tipper, tipper2, tipper3 , tipper4 ] = await hre.ethers.getSigners();
 
-  await lock.waitForDeployment();
+//voters accounts
+const [voter1 , voter2 ,voter3 , voter4] = await hre.ethers.getSigners();
 
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
+//start election
+await votingContract.connect(tipper).startElection('deployer' , 20 ,money);
+
+//register as candidates
+await votingContract.connect(tipper2).register('rio' , money);
+await votingContract.connect(tipper3).register('patrick' , money);
+await votingContract.connect(tipper4).register('king' , money);
+
+//voting operation
+await votingContract.connect(voter1).vote('rio' , money);
+await votingContract.connect(voter2).vote('rio' , money);
+await votingContract.connect(voter3).vote('patrick' , money);
+await votingContract.connect(voter4).vote('king' , money);
+
+//deciding winner
+await votingContract.decideWinner();
+
+
+
+//return candidates
+let candidates = await votingContract.getCandidates();
+console.log("candidates for the election are: ", candidates);
+
+//return winner
+let winner = await votingContract.viewWinner();
+console.log("and the winner of this election is...." , winner);
+// return electionDetails
+let returnElectionDetails = await votingContract.getElectionDetails();
+console.log('Election Details are: ', returnElectionDetails);
 }
 
-// We recommend this pattern to be able to use async/await everywhere
-// and properly handle errors.
-main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
