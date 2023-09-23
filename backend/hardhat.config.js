@@ -1,6 +1,16 @@
-require("@nomicfoundation/hardhat-toolbox");
+require("@nomiclabs/hardhat-waffle");
+require("@nomiclabs/hardhat-ethers");
+require("dotenv").config();
 
-/** @type import('hardhat/config').HardhatUserConfig */
+const GOERLI_URL = process.env.GOERLI_URL;
+const PRIVATE_KEY = process.env.PRIVATE_KEY;
+
+
 module.exports = {
-  solidity: "0.8.18",
+  solidity: "0.8.7",
+  networks: {
+    hardhat: {
+      chainId: 1337
+    }
+  }
 };
