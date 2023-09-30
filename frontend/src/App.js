@@ -2,7 +2,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className="Ap">
+    <div className="App">
       <div className="background-image">
         <header className="App-header">
           HELLO! Time to build!!!!!i
