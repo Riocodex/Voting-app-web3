@@ -3,15 +3,13 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-       <div className={"background-image"}>
+    <div className="App background-image">
         <header className="App-header">
-          <nav class="navbar">
-            <li>Left Item</li>
-            <li>Right Item</li>
+          <nav className="navbar"> 
+            <p>RIOVOTES</p>
+            <button>Connect Wallet</button>
           </nav>
-        </header> 
-      </div>
+        </header>
     </div>
   );
 }

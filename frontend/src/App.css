@@ -14,8 +14,6 @@
 }
 
 .App-header {
-  /* background-color: #282c34; */
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,6 +22,7 @@
   color: white;
 }
 .background-image {
+  min-height: 100vh;
   background-color: black;
   background-size: cover;
   background-repeat: no-repeat;
@@ -31,37 +30,30 @@
   /* You can add more CSS properties to style the background image as needed */
 }
 
-/* styles.css */
-
-/* CSS for the navigation bar */
-.navbar {
-  background-color: rgba(0, 0, 0, 0.7); /* Black background with slight transparency */
-  padding: 15px; /* Add padding for spacing */
-  position: fixed; /* Fixed position to stay at the top */
-  width: 100%; /* Full width */
-  top: 0; /* Place at the top of the page */
-  z-index: 1; /* Ensure it's above other content */
+.navbar{
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+.navbar p{
+  margin-right: 800px;
 }
 
-/* Style for the navigation items */
-.navbar ul {
-  list-style: none; /* Remove list bullets */
-  padding: 0; /* Remove padding */
-  display: flex; /* Display items in a row */
-  justify-content: center; /* Center-align items horizontally */
+.navbar button{
+  background-color: #007bff; /* Blue background color */
+  color: white; /* Text color */
+  padding: 10px 20px; /*Padding for the button*/
+  border: none; /* Remove border */
+  border-radius: 25px; /* Rounded corners */
+  cursor: pointer; /* Add a pointer cursor on hover */
+  font-size: 16px; /* Font size */
+  transition: background-color 0.3s ease; /* Smooth color transition on hover */
+  margin: 17px;
 }
 
-.navbar li {
-  margin: 0 15px; /* Add spacing between items */
+.navbar button:hover{
+  background-color: #0056b3;
 }
 
-.navbar a {
-  text-decoration: none; /* Remove underlines from links */
-  color: white; /* Text color for navigation items */
-  font-size: 18px; /* Adjust font size as needed */
-}
 
-/* Style for the navigation items on hover */
-.navbar a:hover {
-  color: #f2f2f2; /* Change text color on hover */
-}
+
